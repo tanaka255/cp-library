@@ -1,5 +1,5 @@
 #pragma once
-#include "data_structure/sparse_table.hpp"
+#include "data_structures/sparse_table.hpp"
 #include "template.hpp"
 struct lowest_common_ancestor {
   using P = pair<int, int>;
