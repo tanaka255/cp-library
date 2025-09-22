@@ -3,7 +3,7 @@
 
 #include "template.hpp"
 vector<vector<pair<int, ll>>> g;
-vector<int> path;
+vi path;
 void dfs(int u, int prev, int t) {
   path.emplace_back(u);
   if (u == t) {
