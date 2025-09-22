@@ -7,7 +7,7 @@ signed main() {
   cin.tie(nullptr)->sync_with_stdio(false);
   int n;
   cin >> n;
-  vector<vector<int>> g(n);
+  vvi g(n);
   rep(u, n) {
     int k;
     cin >> k;

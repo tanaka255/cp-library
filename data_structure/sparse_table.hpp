@@ -7,7 +7,7 @@ struct sparse_table {
   vector<vector<S>> st;
 
   sparse_table() : n(0) {}
-  sparse_table(vector<S> v) : n(v.size()) {
+  sparse_table(const vector<S>& v) : n(v.size()) {
     if (n == 0) return;
     int log_n = 0;
     while ((1 << log_n) <= n) ++log_n;

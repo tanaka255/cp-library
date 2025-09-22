@@ -7,12 +7,12 @@ struct lowest_common_ancestor {
   static P e() { return {1 << 30, -1}; }
 
   int n;
-  vector<vector<int>> g;
-  vector<int> depth, pos;
+  vvi g;
+  vi depth, pos;
   vector<P> tour;
   sparse_table<P, op, e> st;
 
-  lowest_common_ancestor(vector<vector<int>> _g, int root = 0)
+  lowest_common_ancestor(const vvi& _g, int root = 0)
       : n(_g.size()), g(_g), depth(_g.size()), pos(_g.size()) {
     dfs(root, -1, 0);
     st = sparse_table<P, op, e>(tour);
