@@ -3,6 +3,12 @@
 
 using Point = complex<double>;
 
+struct Line {
+  Point a, b;
+  Line() = default;
+  Line(const Point& _a, const Point& _b) : a(_a), b(_b) {}
+};
+
 constexpr double eps = 1.0e-9;
 
 double dot(const Point& a, const Point& b) { return (conj(a) * b).real(); }
@@ -34,4 +40,12 @@ int ccw(const Point& p0, const Point& p1, const Point& p2) {
     return ONLINE_FRONT;
   else
     return ON_SEGMENT;
+}
+
+bool is_parallel(const Line& l0, const Line& l1) {
+  return abs(cross(l0.b - l0.a, l1.b - l1.a)) < eps;
+}
+
+bool is_orthogonal(const Line& l0, const Line& l1) {
+  return abs(dot(l0.b - l0.a, l1.b - l1.a)) < eps;
 }
