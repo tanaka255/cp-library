@@ -9,3 +9,8 @@ Point projection(const Point& p0, const Point& p1, const Point& p) {
   double t = dot(base, hyp) / norm(base);
   return p0 + t * base;
 }
+
+Point reflection(const Point& p0, const Point& p1, const Point& p) {
+  Point proj = projection(p0, p1, p);
+  return 2.0 * proj - p;
+}
