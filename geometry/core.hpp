@@ -1,8 +1,12 @@
+#pragma once
 #include "template.hpp"
 
 using Point = complex<double>;
 
-double dot(const Point& a, const Point& b) { return (std::conj(a) * b).real(); }
+constexpr double eps = 1.0e-9;
+
+double dot(const Point& a, const Point& b) { return (conj(a) * b).real(); }
+double cross(const Point& a, const Point& b) { return (conj(a) * b).imag(); }
 
 Point projection(const Point& p0, const Point& p1, const Point& p) {
   Point base = p1 - p0, hyp = p - p0;
@@ -13,4 +17,21 @@ Point projection(const Point& p0, const Point& p1, const Point& p) {
 Point reflection(const Point& p0, const Point& p1, const Point& p) {
   Point proj = projection(p0, p1, p);
   return 2.0 * proj - p;
+}
+
+constexpr int COUNTER_CLOCKWISE = 1;
+constexpr int CLOCKWISE = -1;
+constexpr int ONLINE_BACK = 2;
+constexpr int ONLINE_FRONT = -2;
+constexpr int ON_SEGMENT = 0;
+
+int ccw(const Point& p0, const Point& p1, const Point& p2) {
+  Point a = p1 - p0, b = p2 - p0;
+  if (eps < cross(a, b)) return COUNTER_CLOCKWISE;
+  if (cross(a, b) < -eps) return CLOCKWISE;
+  if (dot(a, b) < -eps) return ONLINE_BACK;
+  if (norm(a) < norm(b))
+    return ONLINE_FRONT;
+  else
+    return ON_SEGMENT;
 }
