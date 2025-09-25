@@ -49,3 +49,13 @@ bool is_parallel(const Line& l0, const Line& l1) {
 bool is_orthogonal(const Line& l0, const Line& l1) {
   return abs(dot(l0.b - l0.a, l1.b - l1.a)) < eps;
 }
+
+bool has_intersection(Line s0, Line s1) {
+  rep(_, 2) {
+    if (0 < ccw(s0.a, s0.b, s1.a) * ccw(s0.a, s0.b, s1.b)) {
+      return false;
+    }
+    swap(s0, s1);
+  }
+  return true;
+}
