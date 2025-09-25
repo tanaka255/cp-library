@@ -59,3 +59,12 @@ bool has_intersection(Line s0, Line s1) {
   }
   return true;
 }
+
+Point cross_point(const Line& l0, const Line& l1) {
+  double d0 = cross(l0.b - l0.a, l1.b - l1.a),
+         d1 = cross(l0.b - l0.a, l0.b - l1.a);
+  if (abs(d0) < eps && abs(d1) < eps) {
+    return l1.a;
+  }
+  return l1.a + d1 / d0 * (l1.b - l1.a);
+}
