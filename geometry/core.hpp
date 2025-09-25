@@ -81,3 +81,12 @@ double area(const Polygon& g) {
   ret /= 2.0;
   return ret;
 }
+
+bool is_convex(const vector<Point>& g) {
+  int n = g.size();
+  rep(i, n) {
+    if (ccw(g[(i - 1 + n) % n], g[i], g[(i + 1) % n]) == CLOCKWISE)
+      return false;
+  }
+  return true;
+}
