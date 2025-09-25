@@ -55,3 +55,19 @@ Point cross_point(const Line& l0, const Line& l1) {
   if (abs(d0) < eps && abs(d1) < eps) return l1.a;
   return l1.a + d1 / d0 * (l1.b - l1.a);
 }
+
+double distance_between_point_and_segment(const Point& p, const Line& s) {
+  if (dot(s.b - s.a, p - s.a) < eps) return abs(p - s.a);
+  if (dot(s.a - s.b, p - s.b) < eps) return abs(p - s.b);
+  return abs(cross(s.b - s.a, p - s.a)) / abs(s.b - s.a);
+}
+
+double distance_between_segments(const Line& s0, const Line& s1) {
+  if (has_intersection(s0, s1)) return 0.0;
+  double ret = numeric_limits<double>::max();
+  chmin(ret, distance_between_point_and_segment(s0.a, s1));
+  chmin(ret, distance_between_point_and_segment(s0.b, s1));
+  chmin(ret, distance_between_point_and_segment(s1.a, s0));
+  chmin(ret, distance_between_point_and_segment(s1.b, s0));
+  return ret;
+}
