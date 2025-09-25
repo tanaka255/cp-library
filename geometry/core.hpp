@@ -71,3 +71,13 @@ double distance_between_segments(const Line& s0, const Line& s1) {
   chmin(ret, distance_between_point_and_segment(s1.b, s0));
   return ret;
 }
+
+using Polygon = vector<Point>;
+
+double area(const Polygon& g) {
+  int n = g.size();
+  double ret = 0.0;
+  rep(i, n) ret += cross(g[i], g[(i + 1) % n]);
+  ret /= 2.0;
+  return ret;
+}
