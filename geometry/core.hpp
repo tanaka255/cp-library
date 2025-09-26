@@ -90,3 +90,16 @@ bool is_convex(const Polygon& g) {
   }
   return true;
 }
+
+int polygon_point_containment(const Polygon& g, const Point& p) {
+  bool is_contained = false;
+  int n = g.size();
+  rep(i, n) {
+    Point a = g[i] - p, b = g[(i + 1) % n] - p;
+    if (a.imag() > b.imag()) swap(a, b);
+    if (a.imag() < eps && eps < b.imag() && cross(a, b) < -eps)
+      is_contained = !is_contained;
+    if (abs(cross(a, b)) < eps && dot(a, b) < eps) return 1;
+  }
+  return is_contained ? 2 : 0;
+}
