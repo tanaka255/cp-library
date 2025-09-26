@@ -103,3 +103,29 @@ int polygon_point_containment(const Polygon& g, const Point& p) {
   }
   return is_contained ? 2 : 0;
 }
+
+vi convex_hull(const Polygon& g) {
+  int n = g.size();
+  if (n == 0) return {};
+  vi p_idx(n);
+  iota(p_idx.begin(), p_idx.end(), 0);
+  ranges::sort(p_idx, [&](int a, int b) {
+    if (eps < abs(g[a].real() - g[b].real())) return g[a].real() < g[b].real();
+    return g[a].imag() < g[b].imag() - eps;
+  });
+  vvi hull(2);
+  rep(i, 2) {
+    for (int idx : p_idx) {
+      while (2 <= (int)hull[i].size() &&
+             ccw(g[hull[i][(int)hull[i].size() - 2]], g[hull[i].back()],
+                 g[idx]) == CLOCKWISE) {
+        hull[i].pop_back();
+      }
+      hull[i].emplace_back(idx);
+    }
+    hull[i].pop_back();
+    ranges::reverse(p_idx);
+  }
+  ranges::copy(hull[1], back_inserter(hull[0]));
+  return hull[0];
+}
