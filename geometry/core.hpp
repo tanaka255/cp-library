@@ -129,3 +129,24 @@ vi convex_hull(const Polygon& g) {
   ranges::copy(hull[1], back_inserter(hull[0]));
   return hull[0];
 }
+
+double convex_diameter(const Polygon& g) {
+  int n = g.size();
+  if (n <= 2) return 0.0;
+  if (n == 2) return abs(g[0] - g[1]);
+  int i = 0, j = 0;
+  rep(k, n) {
+    if (g[k].imag() < g[i].imag()) i = k;
+    if (g[j].imag() < g[k].imag()) j = k;
+  }
+  double ret = 0.0;
+  int i0 = i, j0 = j;
+  do {
+    chmax(ret, abs(g[i] - g[j]));
+    if (cross(g[(i + 1) % n] - g[i], g[(j + 1) % n] - g[j]) < -eps)
+      i = (i + 1) % n;
+    else
+      j = (j + 1) % n;
+  } while (i != i0 || j != j0);
+  return ret;
+}
