@@ -150,3 +150,17 @@ double convex_diameter(const Polygon& g) {
   } while (i != i0 || j != j0);
   return ret;
 }
+
+Polygon convex_cut(const Polygon& g, const Line& l) {
+  Polygon ret;
+  int n = g.size();
+  rep(i, n) {
+    const Point &cur = g[i], nxt = g[(i + 1) % n];
+    double cross_cur = cross(l.b - l.a, cur - l.a);
+    double cross_nxt = cross(l.b - l.a, nxt - l.a);
+    if (-eps <= cross_cur) ret.emplace_back(cur);
+    if (cross_cur * cross_nxt < -eps)
+      ret.emplace_back(cross_point(Line(cur, nxt), l));
+  }
+  return ret;
+}
