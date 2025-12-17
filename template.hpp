@@ -1,3 +1,5 @@
+#pragma once
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -27,6 +29,8 @@ using vl = vector<ll>;
 using vvl = vector<vl>;
 using vvvl = vector<vvl>;
 using vvvvl = vector<vvvl>;
+
+using vs = vector<string>;
 
 bool chmax(auto& a, const auto& b) { return a < b ? (a = b, true) : false; }
 bool chmin(auto& a, const auto& b) { return a > b ? (a = b, true) : false; }
